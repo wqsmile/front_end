@@ -30,4 +30,4 @@
     - 正数，表示cookie的有效期（生命周期）
   7. HttpOnly 前端无法获取有这个标记的cookie
   8. Secure 设置cookie只能通过https协议传输
-  9. SameSite 设置cookie在跨域请求的时候不能被发送
+  9. SameSite 设置cookie在跨域请求的时候不能被发送.
