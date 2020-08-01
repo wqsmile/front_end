@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01-cookie</title>
+</head>
+<body>
+  <button onclick="setMaxAge()" class="btn">删除cookie</button>
+  <script>
+    // 在http协议下打开
+    document.cookie = 'name=wqsmile'
+    document.cookie = 'name=wqsmile; age=18' // 设置无效，因为name是唯一的
+    document.cookie = 'age=18'
+    document.cookie = 'age=19' // 覆盖前面的age=18
+
+    document.cookie = 'color=red; domain=127.0.0.1; path=/dd' // 在域名127.0.0.1下才能显示color
+
+    document.cookie = 'weigth=60; expires=' + new Date()
+    document.cookie = 'height=180; max-age=20' 
+
+    function setMaxAge() {
+      document.cookie = 'weigth=60; expires=' + new Date(2008, 1, 1) // 该日期已经过期了，删除cookie中weigth的键值对
+      document.cookie = 'height=180; max-age=0' // 删除height对应的cookie值
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #oDiv {
+      position: relative;
+      left: 100px;
+      top: 100px;
+      width: 100px;
+      height: 100px;
+      background: #f00;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="oDiv"></div>
+  <script src="./cookie.js"></script>
+  <script>
+    // 利用cookie实现元素的拖拽后不因页面刷新而返回原位置
+    class Drag {
+      constructor(dom) {
+        this.dom = dom
+      }
+      init() {        
+        this.dom.style.left = cookie.get('newLeft') ? cookie.get('newLeft') + 'px' : '100px'
+        this.dom.style.top = cookie.get('newTop') ? cookie.get('newTop') + 'px' : '100px'
+        this.dom.onmousedown = this.mouseDown.bind(this)
+        // 鼠标要在document上面挪动，才能实现快速拖拽，不然鼠标跑出元素就卡了
+        document.onmousemove = this.mouseMove.bind(this)
+        document.onmouseup = this.mouseUp.bind(this)
+      }
+      mouseDown(e) {
+        this.disX = e.clientX - this.dom.offsetLeft
+        this.disY = e.clientY - this.dom.offsetTop
+      }
+      mouseMove(e) {
+        this.newLeft = e.clientX - this.disX
+        this.newTop = e.clientY - this.disY
+        this.dom.style.left = this.newLeft + 'px'
+        this.dom.style.top = this.newTop + 'px'
+      }
+      mouseUp() {
+        document.onmousemove = null
+        document.onmouseup = null
+        cookie.set('newLeft', this.newLeft, 60)
+        cookie.set('newTop', this.newTop, 60)
+      }
+    }
+    const drag = new Drag(oDiv)
+    drag.init()
+  </script>
+</body>
+</html>
