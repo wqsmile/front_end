@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./MyPromise.js"></script>
+  <script>
+    const pro2 = new MyPromise((resolve, reject) => {
+      // console.log(2);
+      // throw new Error('asd')
+
+      setTimeout(() => {
+        // reject(1)
+        resolve(2)
+      }, 1000);
+
+    })
+      .catch(err => console.log(err, 'err'))
+      .then(res => console.log(res, 'res'));
+
+    pro2.then(res => {
+      console.log(res, '这是then1')
+      // return 123;
+      throw new Error('qwe')
+    }, err => {
+      console.log(err, '这是then1的第二个后续处理catch')
+    });
+
+    pro2.then(res => {
+      console.log(res, '这是then2')
+      return new MyPromise((resolve, reject) => {
+        resolve('asd')
+      });
+    }).then(data => {
+      console.log(data);
+    });
+    pro2.finally(() => {
+      console.log('finally')
+    });
+    // console.log(pro2);
+
+    const proms = []
+    for (let i = 0; i < 10; i++) {
+      proms.push(new MyPromise((resolve, reject) => {
+        setTimeout(() => {
+          // console.log(i);
+          if (Math.random() < 0.9) {
+            console.log(i, '成功');
+            resolve(i);
+          } else {
+            console.log(i, '失败');
+            reject(i)
+          }
+        }, Math.random() * 1000 + 1000);
+      }));
+    }
+
+    // console.log(proms);
+    // 全部resolve才执行
+    const allPro = MyPromise.all(proms)
+    allPro.then(res => {
+      console.log('恭喜全部完成任务', res)
+    })
+    allPro.catch(err => {
+      console.log('唉有人失败了', err);
+    });
+
+    // 竞赛，只要有Promise进入settled，那么执行race的后续函数
+    const racePro = MyPromise.race(proms)
+    racePro.then(res => {
+      console.log('恭喜', res, '第一个完成了任务')
+    }).catch(err => {
+      console.log('唉第一个失败的是', err);
+    });
+
+  </script>
+</body>
+
+</html>

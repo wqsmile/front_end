@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise</title>
+</head>
+<body>
+  <script>
+    const pro = new Promise((resolve, reject) => {
+      // 未决阶段一定是同步执行
+      console.log(1);
+
+      // throw new Error('未捕获的错误，先自动推向reject，再报错')
+
+      try { // try catch是知道有错误自己捕获，不会推向reject
+        console.log(1.1);
+        throw new Error('try catch是知道有错误自己捕获，不会推向reject')
+      } catch (error) {
+        console.log(error);
+      }
+
+      setTimeout(() => {
+        console.log('settimeout');
+      }, 0);
+
+      resolve(2);
+
+      // 只要从unsettled推向settled，后面的代码就无效，状态是不可逆的
+      reject(3);
+    });
+    pro.then(res => {
+      console.log(res);
+    });
+    pro.catch(err => {
+      console.log(err);
+    });
+    console.log(4);
+    
+  </script>
+</body>
+</html>

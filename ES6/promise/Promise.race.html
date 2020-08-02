@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const proms = []
+    for (let i = 0; i < 20; i++) {
+      proms.push(new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(i);
+          if (Math.random() < 0.5) {
+            resolve(i);
+          } else {
+            reject(i)
+          }
+        }, Math.random() * 1000 + 3000);
+      }));
+    }
+    console.log(proms);
+    // 竞赛，只要有Promise进入settled，那么执行race的后续函数，并且
+    Promise.race(proms).then(res => {
+      console.log('恭喜', res, '第一个完成了任务')
+    }).catch(err => { 
+      console.log('唉第一个失败的是', err);
+    });
+    
+  </script>
+</body>
+</html>

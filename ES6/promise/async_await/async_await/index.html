@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>async await</title>
+</head>
+
+<body>
+  <script src="./ajaxInPromise.js"></script>
+  <script>
+
+    async function test() {
+      console.log('test', 1);
+      return 2;
+    }
+    const pro = test();
+    pro.then(data => console.log('test', data));
+
+    // 等价于
+    function test2() {
+      return new Promise((resolve, reject) => {
+        console.log('test2', 1);
+        resolve(2)
+      })
+    }
+    const pro2 = test2();
+    pro2.then(data => console.log('test2', data));
+
+    // 等价于
+    async function test3() {
+      console.log('test3', 1);
+      const res = await 2; // 如果await后不是Promise，则默认用Promise.resolve()包起来
+      console.log('test3', res);
+    }
+    test3();
+
+    // 等价于
+    function test4() {
+      console.log('test4', 1);
+      return new Promise((resolve, reject) => {
+        Promise.resolve(2).then(data => {
+          const res = data;
+          console.log('test4', res);
+          resolve()
+        })
+      })
+    }
+    pro4 = test4();
+
+
+    // 改造计时器
+    function delay(duration) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve()
+        }, duration);
+      })
+    }
+    // async中不能在定时器中返回值，要对定时器做一下改造
+    async function test5() {
+      await delay(3000); // 这里等待3秒是因为3秒后delay的Promise才进入settled
+      return 5;
+    }
+    async function test6() {
+      const res = await test5(); // 等待3秒后才能拿到5
+      console.log(res);
+    }
+    test6();
+
+
+
+    (async () => {
+      const stus = await ajax({
+        url: './students.json'
+      });
+      const cId = stus.filter(stu => stu.name === '马冬梅')[0].classId;
+
+      const cls = await ajax({
+        url: './classes.json'
+      });
+      const tId = cls.filter(c => c.id === cId)[0].teacherId;
+
+      const teachers = await ajax({
+        url: './teachers.json'
+      });
+      const teacher = teachers.filter(teacher => teacher.id === tId)[0]
+
+      console.log(teacher);
+    })();
+
+
+
+
+  </script>
+</body>
+
+</html>
