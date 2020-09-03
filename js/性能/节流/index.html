@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn">click</button>
+  <script>
+    btn.onclick = throttle(function() {console.log('click')}, 2000); // 执行的是throttle的返回函数，last在返回函数中形成了闭包
+    function throttle(method, delay) {
+      var last = 0;
+      return function () {
+        var now = +new Date();
+        if (now - last > delay) {
+          method.apply(this, arguments)
+          last = now;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

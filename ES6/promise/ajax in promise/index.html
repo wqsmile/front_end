@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise串联</title>
+</head>
+
+<body>
+  <script src="./ajaxInPromise.js"></script>
+  <script>
+    const pro = ajax({
+      url: './students.json'
+    });
+
+    // pro.then(students => {
+    //   return students.filter(student => student.name === '王五')[0].classId
+    // }).then(classId => {
+    //   return ajax({
+    //     url: './classes.json'
+    //   }).then(classes => {
+    //     return classes.filter(squad => squad.id === classId)[0].teacherId
+    //   })
+    // }).then(teacherId => {
+    //   return ajax({
+    //     url: './teachers.json'
+    //   }).then(teachers => {
+    //     return teachers.filter(teacher => teacher.id === teacherId)[0]
+    //   })
+    // }).then(teacher => console.log(teacher));
+
+    const sPro = pro.then(students => {
+      return students.filter(student => student.name === '王五')[0].classId
+    });
+
+    const cPro = sPro.then(classId => {
+      return ajax({
+        url: './classes.json'
+      }).then(classes => {
+        return classes.filter(squad => squad.id === classId)[0].teacherId
+      })
+    });
+
+    const tPro = cPro.then(teacherId => {
+      return ajax({
+        url: './teachers.json'
+      }).then(teachers => {
+        return teachers.filter(teacher => teacher.id === teacherId)[0]
+      })
+    })
+      .then(teacher => console.log(teacher));
+
+
+  </script>
+</body>
+
+</html>

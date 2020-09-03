@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const proms = []
+    for (let i = 0; i < 20; i++) {
+      proms.push(new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(i);
+          if (Math.random() < 0.9) {
+            resolve(i);
+          } else {
+            reject(i)
+          }
+        }, Math.random() * 1000 + 3000);
+      }));
+    }
+    console.log(proms);
+    // 应用：同时发出多个请求后需要汇总所有请求的内容
+    Promise.all(proms).then(res => { // 全部都成功才执行
+      console.log('20个Promise已完成', res)
+    }).catch(err => { // 有一个失败了就执行      
+      console.log('不好意思有一个失败了', err);
+    });
+    
+  </script>
+</body>
+</html>

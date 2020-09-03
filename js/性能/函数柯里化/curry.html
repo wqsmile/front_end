@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function fixCurryParams(fn) {
+      var arg = [].slice.call(arguments, 1);
+      return function () {
+        var _arg = [].slice.call(arguments, 0);
+        return fn.apply(this, arg.concat(_arg));
+      }
+    }
+    function Curry(fn, length = fn.length) { // 接收需要柯里化的函数以及后续的剩余参数的长度
+      if (typeof fn !== 'function') throw new Error('参数应为一个函数');
+      return function () {
+        if (length > arguments.length) {
+          var arg = [].slice.call(arguments, 0);
+          // 继续柯里化， 注意apply传的是数组
+          return Curry(fixCurryParams.apply(this, [fn, ...arg]), length - arguments.length);
+        } else {
+          return fn.apply(this, arguments);
+        }
+      }
+    }
+    function add(x, y, z) {
+      return (x + y + z);
+    }
+    var fun = new Curry(add);
+    var res = fun(1)(2);
+    res = res(3);
+    console.log(res);
+  </script>
+</body>
+
+</html>

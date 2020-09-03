@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      perspective: 3000px;
+      background-color: #000;
+    }
+
+    .rotate-img {
+      list-style: none;
+      padding: 0px;
+      margin: 0;
+      position: absolute;
+      width: 300px;
+      height: 150px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transform-style: preserve-3d;
+      animation: demo 15s infinite linear;
+    }
+
+    @keyframes demo {
+      0% {
+        transform: translate(-50%, -50%) rotateY(0deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotateY(360deg);
+      }
+    }
+
+    .rotate-img>li {
+      width: 300px;
+      height: 200px;
+      border-radius: 10px;
+      position: absolute;
+      box-shadow: 0 0 30px 0 #ccc;
+    }
+
+    .rotate-img>li>img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .rotate-img>li:nth-child(1) {
+      background: red;
+      transform: rotateY(60deg) translateZ(500px);
+    }
+
+    .rotate-img>li:nth-child(2) {
+      background: blue;
+      transform: rotateY(120deg) translateZ(500px);
+    }
+
+    .rotate-img>li:nth-child(3) {
+      background: yellow;
+      transform: rotateY(180deg) translateZ(500px);
+    }
+
+    .rotate-img>li:nth-child(4) {
+      background: green;
+      transform: rotateY(240deg) translateZ(500px);
+    }
+
+    .rotate-img>li:nth-child(5) {
+      background: greenyellow;
+      transform: rotateY(300deg) translateZ(500px);
+    }
+
+    .rotate-img>li:nth-child(6) {
+      background: orange;
+      ;
+      transform: rotateY(360deg) translateZ(500px);
+    }
+
+    .jeon {
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      position: absolute;
+      left: 50%;
+      top: 20%;
+      transform: translate(-50%, -50%);
+      background-image: url('https://tse1-mm.cn.bing.net/th/id/OIP.oqeDQgfGmU1UYi_l_kRdFQHaE8?w=264&h=180&c=7&o=5&dpr=1.25&pid=1.7');
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-position: 610px -68px;
+      background-size: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <p class="jeon">Jeon Jung Kook</p>
+  <ul class="rotate-img">
+    <li><img src="https://tse3-mm.cn.bing.net/th/id/OIP.fQeX_DcUaVfofBQiOvR7AQHaEo?w=282&h=180&c=7&o=5&dpr=1.25&pid=1.7"
+        alt=""></li>
+    <li><img src="https://tse3-mm.cn.bing.net/th/id/OIP.CDEBrLHyG-wVvrF3JCOqTwHaEo?w=282&h=180&c=7&o=5&dpr=1.25&pid=1.7"
+        alt=""></li>
+    <li><img src="https://tse3-mm.cn.bing.net/th/id/OIP.WruUCl9xWCNivGXm7vK6iQHaFe?w=238&h=180&c=7&o=5&dpr=1.25&pid=1.7"
+        alt=""></li>
+    <li><img src="https://tse1-mm.cn.bing.net/th/id/OIP.oqeDQgfGmU1UYi_l_kRdFQHaE8?w=264&h=180&c=7&o=5&dpr=1.25&pid=1.7"
+        alt=""></li>
+    <li><img src="https://tse1-mm.cn.bing.net/th/id/OIP.XO6mSEYPRG5vzFCBvenALAHaEK?w=296&h=180&c=7&o=5&dpr=1.25&pid=1.7"
+        alt=""></li>
+    <li><img src="https://tse1-mm.cn.bing.net/th/id/OIP.o6mNdbqLCs-8UXPpcNr__QEyDM?w=270&h=180&c=7&o=5&dpr=1.25&pid=1.7"
+        alt=""></li>
+  </ul>
+</body>
+
+</html>

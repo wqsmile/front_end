@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .line1 {
+      stroke: red;
+    }
+
+    .rect1 {
+      stroke: blue;
+      fill: pink;
+    }
+  </style>
+</head>
+
+<body>
+  <svg width="1000px" height="300px" viewBox="0, 0, 1000, 300" style="border: 1px solid;">
+    <line x1="0px" y1="50px" x2="100px" y2="100px" class="line1"></line>
+    <rect height="200px" width="200px" x="50px" y="50px" rx="10" ry="10" class="rect1"></rect>
+    <circle r="50" cx="50" cy="50" style="border: 1px solid;"></circle>
+    <ellipse rx="40" ry="80" cx="200" cy="200" style="fill:transparent;stroke: red;"></ellipse>
+    <polyline points="200 0, 200 200, 300 300" style="fill:transparent;stroke:red"></polyline>
+    <polygon points="0 200, 100 200, 100 250" style="fill:transparent;stroke:red"></polygon>
+    <!-- 高斯模糊 -->
+    <filter id="Gaussian">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5"></feGaussianBlur>
+    </filter>
+    <image xlink:href="https://tse1-mm.cn.bing.net/th/id/OIP.6TezAXeZyNJQOKbc6L491gHaGc?w=236&h=205&c=7&o=5&dpr=1.25&pid=1.7"
+      filter="url(#Gaussian)" width="293" height="257" >
+  </svg>
+</body>
+
+</html>

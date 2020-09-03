@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .a {
+      color: yellow;
+    }
+
+    /* 对浏览器没有访问过的网站才有效，否则会一直用visited的样式 */
+    .a:link {
+      color: blueviolet;
+    }
+
+    .a:visited {
+      color: cadetblue;
+    }
+
+    .a:hover {
+      color: crimson;
+    }
+
+    .a:active {
+      color: chartreuse;
+    }
+
+    .df {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 100px;
+      height: 100px;
+      border: 1px solid;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: space-between;
+      align-content: space-around;
+    }
+
+    .df>li {
+      width: 20px;
+      height: 20px;
+      border: 1px solid orange;
+    }
+
+    .bezier {
+      width: 100px;
+      height: 100px;
+      background: #f00;
+      transition: all 2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+      animation: demo1 5s infinite alternate both steps(300);
+      /* animation: step 3s steps(6) both infinite; */
+    }
+
+    @keyframes demo1 {
+      0% {
+        margin-left: 0;
+      }
+
+      100% {
+        margin-left: 300px;
+      }
+    }
+
+    .tf {
+      /* width: 400px; */
+      height: 200px;
+      margin: 20px 0;
+      background: #f0f;
+      /* transform-style: preserve-3d; */
+      /* 景深有两种写法，写在父元素或者子元素，子元素用transform写 */
+      /* 写在父元素则把父元素作为舞台，写在子元素则每个子元素都有自己的舞台 */
+      perspective: 800px;
+    }
+
+    .tfs {
+      float: left;
+      width: 150px;
+      height: 150px;
+      background: palegreen;
+      animation: demo2 2s infinite alternate linear;
+    }
+
+    @keyframes demo2 {
+      0% {
+        transform: rotateY(60deg);
+      }
+
+      100% {
+        transform: rotateY(120deg);
+      }
+    }
+
+    .tf2 {
+      perspective: none;
+    }
+
+    .tfs2 {
+      animation: demo3 2s infinite alternate linear;
+    }
+
+    @keyframes demo3 {
+      0% {
+        transform: perspective(800px) rotateY(60deg);
+      }
+
+      100% {
+        transform: perspective(800px) rotateY(120deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="https://3g.163.com/dy/article/FIUDMP1S0522LV07.html?f=common-recommend-list" target="_blank"
+    class="a">a标签颜色更改</a>
+
+  <ul class="df">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+  </ul>
+
+  <div class="bezier">贝塞尔曲线</div>
+
+  <div class="tf">写父元素的景深
+    <div class="tfs"></div>
+    <div class="tfs"></div>
+    <div class="tfs"></div>
+    <div class="tfs"></div>
+    <div class="tfs"></div>
+  </div>
+
+  <div class="tf tf2">写子元素的景深
+    <div class="tfs tfs2"></div>
+    <div class="tfs tfs2"></div>
+    <div class="tfs tfs2"></div>
+    <div class="tfs tfs2"></div>
+    <div class="tfs tfs2"></div>
+    <div class="tfs tfs2"></div>
+  </div>
+
+  <!-- 该属性可以继承 -->
+  <div class="demo" contenteditable="true">
+    smile
+    <br>
+    <span>rain</span>
+  </div>
+
+  <script>
+    document.querySelector('.bezier').onclick = e => {
+      e.target.style.marginLeft = '200px';
+    }
+  </script>
+</body>
+
+</html>
